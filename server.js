@@ -2,10 +2,10 @@
 
 var http = require('http');
 // built in, no need to install
-
 var url = require("url");
+var fs = require("fs");
 
-
+/*
 function getPhrase(array){
     var phraseIndex = 0;
     phraseIndex = Math.floor(Math.random() * array.length);
@@ -56,7 +56,7 @@ function handleRequest2(request, response){
     // a generic function to handle requests and responses
     response.end(getPhrase(badPhrases));
 }
-
+*/
 // ********************** server 3 *****************************
 
 var PORT3 = 8085;
@@ -69,24 +69,32 @@ function handleRequest3(request, response){
     // console.log(urlParts);
     switch (urlParts.pathname) {
         case "/":
-            displayRoot(urlParts.pathname, request, response);
+            displayPage("home.html", request, response);
             break;
-        case "/portfolio":
-            displayRoot(urlParts.pathname, request, response);
+        case "/home":
+            displayPage("home.html", request, response);
             break;
-        case "/edit":
-            console.log("display for editing a page");
+        case "/food":
+             displayPage("food.html", request, response);
+            break;
+        case "/movie":
+            displayPage("movie.html", request, response);
+            break;
+        case "/framework":
+            displayPage("framework.html", request, response);
             break;
         default:
             console.log("404 not found");
+            response.writeHead(404);
     }
 }
 
-function displayRoot(url, request, response){
-    var myHTML = `<html>
-        <body><h1>Home Page</h1>
-        <a href = "/portfolio">Portfolio</a>
-        </body></html>`;
-    response.writeHead(200, {"Content-Type": "text/html"});
-    response.end(myHTML);
+function displayPage(path, request, response){
+    fs.readFile(path, function(err, data){
+        // get html from an html file instead of a string
+        response.writeHead(200, {"Content-Type": "text/html"});
+        // the above is the default, so not totally necessary
+        // but it's best practice to be explicit about it
+        response.end(data);
+    });
 }
