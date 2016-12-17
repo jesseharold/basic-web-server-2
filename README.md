@@ -12,5 +12,5 @@ Instructions
 Bonus
 
 * Look for other ways to expand what your server can do. As possibilities:
--- Generate the good / bad phrase randomly from a list of predefined phrases
--- Use the twitter package inside the response to also return a random tweet
+..* Generate the good / bad phrase randomly from a list of predefined phrases
+..* Use the twitter package inside the response to also return a random tweet
